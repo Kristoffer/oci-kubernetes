@@ -22,3 +22,13 @@ terraform {
     }
   }
 }
+
+provider "kubernetes" {
+  config_path = "~/.kube/oci-config"
+}
+
+resource "kubernetes_namespace" "namespace" {
+  metadata {
+    name = "test"
+  }
+}
