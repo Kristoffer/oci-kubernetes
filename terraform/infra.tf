@@ -98,6 +98,10 @@ resource "oci_network_load_balancer_network_load_balancer" "nlb" {
 
   is_private                     = false
   is_preserve_source_destination = false
+
+  reserved_ips {
+    id = oci_core_public_ip.public_ip_1.id
+  }
 }
 
 resource "oci_network_load_balancer_backend_set" "nlb_backend_set" {
@@ -127,3 +131,11 @@ resource "oci_network_load_balancer_listener" "nlb_listener" {
   port                     = "80"
   protocol                 = "TCP"
 }
+
+resource "oci_core_public_ip" "public_ip_1" {
+    #Required
+    compartment_id = var.compartment_id
+    lifetime = "RESERVED"
+}
+
+
